@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Feed Notifier</title>
+        <link rel="icon" href="/icon.ico" type="image/ico">  
+
+    <link href="/main.css" rel="stylesheet">  
+
+    <link href="/icomoon/style.css" rel="stylesheet">  
+    <link href="/bootstrap-4.3.1-dist/css/bootstrap.css" rel="stylesheet">  
+
+    <!-- Insert this line above script imports  -->
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <!-- Insert this line after script imports -->
+    <script>if (window.module) module = window.module;</script>
+     
+    </head>
+    <body> 
+        <div id="app"></div>
+        <div id="testresult"></div>
+        <hiddenarrea>
+            <audio id="myaudio" controls>
+                <source src="/Beeper.wav" type="audio/wav">  
+            </audio>
+     
+        </hiddenarrea> 
+
+ 
+        <script src="/render.js"></script>
+        <script src="/js/mypage.js"></script>
+    </body>
+</html>
