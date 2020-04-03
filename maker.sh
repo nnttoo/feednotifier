@@ -30,6 +30,6 @@ case "$1" in
 	cd src 
 	make debug
 	cd ../electronbuilder/ 
-	npm start debug=debugs
+	npm start debug=debug
 	;;  
 esac
