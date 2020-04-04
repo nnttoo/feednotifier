@@ -1,6 +1,6 @@
 @font-face {
-   font-family: 'ptserifitalic'; 
-   src: url('/PT_Serif/PTSerif-Regular.ttf')  format('truetype'); /* Safari, Android, iOS */  
+   font-family: 'RobotoRegular'; 
+   src: url('/Roboto-Regular.ttf')  format('truetype'); /* Safari, Android, iOS */  
  }
  @font-face {
    font-family: 'pamelo'; 
@@ -9,6 +9,7 @@
 body{
     height: 100%;
     overflow: hidden;
+    font-family: "RobotoRegular"; 
 }
  hiddenarrea{
     display: none;
@@ -27,10 +28,7 @@ body{
  .settingbutton:active{
    color: #fcfcfc;
    background-color: #001f1f; 
- }
- #app{    
-   font-family: "ptserifitalic"; 
- }
+ } 
  #app .bottombar{
     font-family: "pamelo";
     text-align: center;
@@ -63,16 +61,4 @@ body{
    margin: 2px;
 }
 
-
-/** FOR RESIZER**/
-.maskresize{
-   display: none;
-   position: absolute;
-   top: 0px;
-   bottom: 0px;
-   left: 0px;
-   right: 0px;
-   background-color: #16292936;
-   z-index: 100;
-   cursor: ew-resize;
-}
+ 

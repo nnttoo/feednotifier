@@ -72,7 +72,7 @@
     cursor: pointer;
 }
 #spage .rsschillist .delbut{
-    width: 70px;
+    width: 50px;
 }
 #spage .rsschillist .rsstextinfo{
     max-width: 100%;
@@ -86,7 +86,21 @@
 #spage .rsschillist .url{
     font-size: 11px;
 }
- 
+
+#spage .notif{
+    position: relative;
+}
+
+.notif .notifnumber{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: #fa0303;
+    color: rgb(255, 255, 255);
+    padding-right: 2px;
+    padding-left: 2px;
+    font-size: 13px;
+}
 
 .settingtb tr{ 
     background-color: #c7c6ee;  
@@ -99,6 +113,8 @@
     width: 50px;
     text-align: center;
 }
+
+
 .callmaskFixed{ 
   position: fixed; 
 }
@@ -301,44 +317,51 @@ to { -webkit-transform: rotate(360deg); }
     display: table-row;
 }
 .feedcompctn{
-    padding-top: 10px;
-    background-color : #022c44; 
+    padding: 10px;
+    background-color : #b5b5c2; 
 }
 
 .feedcompctn .urltitle{
-    font-size: 13px;
-    color: coral;
+    font-size: 14px;
+    color: #ffa786;
     padding: 5px; 
     background-color: black;
+    border-radius: 5px;
+    margin-bottom: 3px;
 }
 .feedcompctn .item{
-    background-color: #fff9f9;
-    margin-bottom: 5px; 
+    background-color: #ffffff;
+    margin-bottom: 15px; 
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 10px;
 }
 .feedcompctn .itemtitle{ 
-    color: #302902; 
+    color: #000000; 
     margin-bottom: 3px;
     font-weight: bold;
     cursor: pointer;
     padding: 5px; 
 }
 .feedcompctn .newctn{
-    color: #7e0049;
+    color: #ce00b2;
 }
 
 .feedcompctn .itemdesc{
-    padding: 5px; 
+    padding: 5px 5px 15px 5px; 
+    
 }
 .feedcompctn .itembtn{  
-    background-color: #ffe0f2;
+    background-color: #fceef6;
     text-align: right;
+    padding-right: 5px; 
 } 
 .feedcompctn .itempubdate{
     font-size: 12px;
     font-weight: bold;  
 }
 .feedcompctn .itempublisher{
-    width: 200px;
+    width: 150px;
     overflow: hidden;
     font-size: 12px;    
     font-weight: bold; 
@@ -347,8 +370,8 @@ to { -webkit-transform: rotate(360deg); }
 }
  
 @font-face {
-   font-family: 'ptserifitalic'; 
-   src: url('/PT_Serif/PTSerif-Regular.ttf')  format('truetype'); /* Safari, Android, iOS */  
+   font-family: 'RobotoRegular'; 
+   src: url('/Roboto-Regular.ttf')  format('truetype'); /* Safari, Android, iOS */  
  }
  @font-face {
    font-family: 'pamelo'; 
@@ -357,6 +380,7 @@ to { -webkit-transform: rotate(360deg); }
 body{
     height: 100%;
     overflow: hidden;
+    font-family: "RobotoRegular"; 
 }
  hiddenarrea{
     display: none;
@@ -375,10 +399,7 @@ body{
  .settingbutton:active{
    color: #fcfcfc;
    background-color: #001f1f; 
- }
- #app{    
-   font-family: "ptserifitalic"; 
- }
+ } 
  #app .bottombar{
     font-family: "pamelo";
     text-align: center;
@@ -411,16 +432,4 @@ body{
    margin: 2px;
 }
 
-
-/** FOR RESIZER**/
-.maskresize{
-   display: none;
-   position: absolute;
-   top: 0px;
-   bottom: 0px;
-   left: 0px;
-   right: 0px;
-   background-color: #16292936;
-   z-index: 100;
-   cursor: ew-resize;
-}
+ 

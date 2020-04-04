@@ -142,22 +142,39 @@ export default class SettingPage extends MyComponent{
         mask.remove()
     }
 
-    clickFeedlist(id){
-        this.AppCtx.classInit.FeedCompFrame.scrollTo(id);
+    /**
+     * 
+     * @param {RssInfo} rssinfo 
+     * @param {string} id 
+     */
+    clickOpenFeedContent(id,rssinfo){
+        this.AppCtx.openNewCtn(id,rssinfo)
         this.AppCtx.classInit.settingBut.removeSettingPage()
     }
     render(){  
         var elemlist = []; 
         this.listurl.forEach((element,i) => {
+            var notifelem = null;
+            var countNewContent = element.countNewContent()
+            if(countNewContent >0){
+                notifelem = (
+                <div className="notif">
+                    <div className="notifnumber">{countNewContent}</div>
+                </div>)
+            }
+
             elemlist.push(
-            <div key={i} className="rsschillist tbframe tbfixed">
-                <div onClick={()=>{this.clickFeedlist(i)}}  onContextMenu={()=>{this.contextMenuShow(element)}} mycheck="sssssss" className="tc tcnwrap tcvm" >
-                    <div className="rsstextinfo title">{element.title}</div>
-                    <div className="rsstextinfo url">{element.url}</div>
-                </div>         
-                <div className="delbut tc tcnwrap tcvm">
-                    <button onClick={()=>this.butClickdeleteRss(i)} className="btn btn-danger btn-sm">delete</button>
-                </div>       
+            <div  key={i}>
+                {notifelem}
+                <div className="rsschillist tbframe tbfixed">
+                    <div onClick={()=>{this.clickOpenFeedContent(i,element)}}  onContextMenu={()=>{this.contextMenuShow(element)}} mycheck="sssssss" className="tc tcnwrap tcvm" >
+                        <div className="rsstextinfo title">{element.title}</div>
+                        <div className="rsstextinfo url">{element.url}</div> 
+                    </div>         
+                    <div className="delbut tc tcnwrap tcvm">
+                        <button onClick={()=>this.butClickdeleteRss(i)} className="btn btn-danger btn-sm">delete</button>
+                    </div>       
+                </div>            
             </div>)
         });
 

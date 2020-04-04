@@ -21,7 +21,7 @@ func main() {
 
 	ln, _ := net.Listen("tcp", "127.0.0.1:0")
 	url := "http://" + ln.Addr().String()
-	OpenElectronWindow(url, "500", "700")
+	OpenElectronWindow(url, "420", "700")
 	runServer(ln)
 
 	// // Create UI with basic HTML passed via data URI

@@ -22,7 +22,11 @@ export default class AppCtx{
 
         this.cbRsschanged = null;
 
-        this.listurlsaved = [];
+        /**
+         *  save old url 
+         * @type {string[]}
+        */
+        this.listOldurl = [];
 
         this.classInit = {
             /** @type {SettingBut} */
@@ -32,13 +36,12 @@ export default class AppCtx{
         }
     }
 
-    async loadOrSaveUrl(saveMode){
+    async loadOrSaveOldUrl(saveMode){
         
         var scall = ServerCall.getServerAjax()
         scall.datas.atype = "savedurl" 
         if(saveMode){
-            var savelinklimit = this.listurlsaved.slice(0,100);
-
+            var savelinklimit = this.listOldurl.slice(0,100);
             scall.datas.data = JSON.stringify(savelinklimit)
         } else {
             scall.datas.data = ""
@@ -51,7 +54,7 @@ export default class AppCtx{
                  obj = JSON.parse(str)
              } catch (error) { }
              if(obj != null && Array.isArray(obj)){
-                 this.listurlsaved = obj;
+                 this.listOldurl = obj;
              }
         }
 
@@ -62,18 +65,38 @@ export default class AppCtx{
      * @param {RssContent} rssctn 
      * @param {RssInfo} rssinfo 
      */
-    notifiSound(rssctn,rssinfo){
+    notifiSound(rssctn,rssinfo,rssinfoID){
         let myNotification = new Notification(rssinfo.title, {
             body: rssctn.Title
         })
         
         myNotification.onclick = () => {
             window.focusWindow()
+            this.openNewCtn(rssinfoID,rssinfo)
         }
         window.playSound();
     }
 
-    
+    /**
+     * 
+     * @param {string} rssinfoid 
+     * @param {RssInfo} rssinfo 
+     */
+    openNewCtn(rssinfoid,rssinfo){
+        if(this.classInit.FeedCompFrame != null){
+            this.classInit.FeedCompFrame.scrollTo(rssinfoid);
+        } 
+    }
+
+    /**
+     * 
+     * @param {RssContent} rssctn 
+     */
+    saveAsOldContent(rssctn){
+        rssctn.NewContent = false;
+        this.listOldurl.push(rssctn.Link);
+        this.loadOrSaveOldUrl(true)
+    }
 
     checkIsNewContent(){
         /**
@@ -89,37 +112,33 @@ export default class AppCtx{
             }
         }
 
-
-        var notifRssInfo = null;
-        var notifRssCtn = null;
+ 
 
         /** @param {RssInfo} rssinfo */
-        var everyContent= (rssinfo)=>{
+        var everyRssInfo= (rssinfo, ID)=>{ 
+            var notifRssCtn = null;
             for(var i=0;i<rssinfo.rssContents.length;i++){
                 var curcontent = rssinfo.rssContents[i];
                 parsePubDate(curcontent)
 
-                if(!this.listurlsaved.includes(curcontent.Link)){
-                    this.listurlsaved.push(curcontent.Link);
-                    
-                    notifRssInfo = rssinfo;
+                if(!this.listOldurl.includes(curcontent.Link)){    
                     notifRssCtn = curcontent;
-                    curcontent.NewContent = true;
+                    curcontent.NewContent = true; 
                 } else {
                     curcontent.NewContent = false;
                 }
+            } 
+            if(notifRssCtn != null){
+                this.notifiSound(notifRssCtn,rssinfo,ID);
             }
+            
         }
 
         this.listfeed.forEach((v,i)=>{
-            everyContent(v)
+            everyRssInfo(v,i)
         })
-
-        if(notifRssInfo != null && notifRssCtn != null){
-            this.notifiSound(notifRssCtn,notifRssInfo);
-        }
-
-        this.loadOrSaveUrl(true);
+ 
+ 
     }
 
     async loadconfig(){
@@ -128,7 +147,7 @@ export default class AppCtx{
             return
         }
 
-        await this.loadOrSaveUrl(false);
+        await this.loadOrSaveOldUrl(false);
 
         var scall = ServerCall.getServerAjax()
         scall.datas.atype = "config" 
@@ -200,11 +219,9 @@ export default class AppCtx{
         var obj = null;
         try {
             obj = JSON.parse(jsonstring)
-        } catch (error) {
-            
-        }
+        } catch (error) {}
         if(obj != null && Array.isArray(obj)){
-            this.listfeed = obj;
+            this.listfeed = RssInfo.convertToClass(obj);
         }
 
         mask.remove()

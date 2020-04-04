@@ -7,11 +7,14 @@ const clipboard = electron.clipboard
 
 function focusWindow(){
     var w = remote.getCurrentWindow();
-    w.focus()
+    w.show();
+    w.focus();
 }
 
 function playSound(){
-    document.getElementById("myaudio").play()
+    var audio = document.getElementById("myaudio");
+    audio.volume = 1
+    audio.play()
 }
 
 function openLinkExternal(link){ 

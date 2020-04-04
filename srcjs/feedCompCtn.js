@@ -2,9 +2,10 @@ import React from 'react';
 import RssInfo from './reuse/rssinfo';
 import './feedCompCtn.css'
 import RssContent from './reuse/rsscontent';
+import MyComponent from './reuse/mycomponent';
 
 
-export default class FeedCompCtn extends React.Component{
+export default class FeedCompCtn extends MyComponent{
     constructor(props){
         super(props)
 
@@ -55,6 +56,15 @@ export default class FeedCompCtn extends React.Component{
         var menit = (second / 60).toFixed(0);
         return menit + " minutes ago"
     }
+
+    /**
+     * 
+     * @param {RssContent} rsscontent 
+     */
+    saveToOld(rsscontent){
+        this.AppCtx.saveAsOldContent(rsscontent)
+        this.forceUpdate()
+    }
     
     render(){ 
         var elemenContent = [];
@@ -68,11 +78,15 @@ export default class FeedCompCtn extends React.Component{
             var timeinword = this.calcTimeToAgo(curdate,e.PubdateParsed);
 
             var newCtnclas = ""
+            var mouseEnterFunc = null;
             if(e.NewContent){
                 newCtnclas = "newctn"
+                mouseEnterFunc = ()=>{
+                    this.saveToOld(e);
+                }
             }
             elemenContent.push(
-                <div className="item" key={i}>
+                <div className="item" onMouseEnter={mouseEnterFunc} key={i}>
                     <div className={"itemtitle " + newCtnclas}>{e.Title}</div>
                     <div className="itemdesc">{e.ShortDescription }</div>
                     

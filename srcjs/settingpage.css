@@ -72,7 +72,7 @@
     cursor: pointer;
 }
 #spage .rsschillist .delbut{
-    width: 70px;
+    width: 50px;
 }
 #spage .rsschillist .rsstextinfo{
     max-width: 100%;
@@ -86,7 +86,21 @@
 #spage .rsschillist .url{
     font-size: 11px;
 }
- 
+
+#spage .notif{
+    position: relative;
+}
+
+.notif .notifnumber{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: #fa0303;
+    color: rgb(255, 255, 255);
+    padding-right: 2px;
+    padding-left: 2px;
+    font-size: 13px;
+}
 
 .settingtb tr{ 
     background-color: #c7c6ee;  
@@ -99,3 +113,4 @@
     width: 50px;
     text-align: center;
 }
+
