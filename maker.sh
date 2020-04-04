@@ -38,5 +38,12 @@ case "$1" in
 	npm install
 	cd electronbuilder
 	npm install
+	;;
+
+"CreateLinuxRun")
+	cd ./electronbuilder/release-builds
+	rm INSTALL.sh
+	echo -e "#!/bin/sh \n./feednotifier-linux-x64/feednotifier installmode=i" >> ./INSTALL.sh
+
 
 esac
