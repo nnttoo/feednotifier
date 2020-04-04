@@ -18,23 +18,27 @@
     </head>
     <body>  
         <script>
+
+        const electron =  require('electron');
+        const remote = electron.remote;
+        var elecwin =  remote.getCurrentWindow();
+        var shell = electron.shell;
+
         window.addEventListener('message', function(event){
             var ctn = (event.data.Content == "")? event.data.Description : event.data.Content
-             document.body.innerHTML = '<h3>'+event.data.Title+'</h3> <div>' +ctn+ '</div>';
+             document.body.innerHTML = '<h3>'+event.data.Title+'</h3> <div>' +ctn+ '</div>'; 
+            elecwin.show();
         }); 
         window.onload = function(){
             window.opener.postMessage("load",window.location.href)
         }
-        const electron =  require('electron');
-        const remote = electron.remote;
-        var shell = electron.shell;
         //open links externally by default
         $(document).on('click', 'a[href^="http"]', function(event) {
             event.preventDefault();
             shell.openExternal(this.href);
         });
 
-        remote.getCurrentWindow().setMenuBarVisibility(false)
+        elecwin.setMenuBarVisibility(false)
 
         </script>
     </body>

@@ -28,7 +28,7 @@ export default class FeedCompCtn extends React.Component{
         var w = window.open("/contentviewer.html","purchaseWin2", "location=0,status=0,scrollbars=0,width=400,height=700");
         var f = function(){ 
             w.postMessage(rssinfo,window.location.href)
-            window.removeEventListener("message",f)
+            window.removeEventListener("message",f) 
         }
 
         window.addEventListener("message",f) 
