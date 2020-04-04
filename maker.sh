@@ -31,16 +31,11 @@ case "$1" in
 	make debug
 	cd ../electronbuilder/ 
 	npm start debug=debug
-	;;  
+	;;   
 
-
-"InstallDep")
-	npm install
-	cd electronbuilder
-	npm install
-	;;
-
+##create INSTALL.sh for linux user
 "CreateLinuxRun")
+	mkdir ./electronbuilder/release-builds
 	cd ./electronbuilder/release-builds
 	rm INSTALL.sh
 	echo -e "#!/bin/sh \n./feednotifier-linux-x64/feednotifier installmode=i" >> ./INSTALL.sh
