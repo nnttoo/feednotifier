@@ -10,6 +10,22 @@ FeedNotifier runs on Windows, Linux and Mac
 
 ![alt text](https://github.com/nnttoo/feednotifier/blob/media/MyImage/setting.png?raw=true "Setting window")
 
+download or clone the repository
 
-![alt text](https://github.com/nnttoo/feednotifier/blob/media/MyImage/ssimage.png?raw=true "Home window")
+``` 
+    git clone https://github.com/nnttoo/feednotifier.git
 
+```
+install all node modules by typing the command
+
+```
+    npm install
+```
+to debug, run this code
+
+```
+    ./maker.sh GuiDebug
+```
+
+read my stories on medium 
+https://medium.com/@antoharyanto/open-source-rss-feed-notifier-for-linux-and-windows-567e4c168073
