@@ -1,0 +1,27 @@
+
+.tbframe{
+    display : table;
+    width : 100%;
+}
+
+.tbframe.tbfixed{
+
+    table-layout: fixed;
+}
+
+.tbframe .tcl{
+    width: 100%;
+}
+
+.tbframe .tc{
+    display : table-cell;
+}
+.tbframe .tcnwrap{
+    white-space: nowrap;
+}
+.tbframe .tcvm{
+    vertical-align: middle;
+}
+.tbframe .tr{
+    display: table-row;
+}

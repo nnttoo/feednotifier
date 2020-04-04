@@ -1,0 +1,5 @@
+build/
+buildgo/
+.vscode/
+node_modules/
+pkg/

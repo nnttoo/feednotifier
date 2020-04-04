@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Feed Notifier</title>
+        <style type="text/css">
+            body{
+                padding: 5px;
+            }
+        </style>
+
+
+
+    <!-- Insert this line above script imports  -->
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <!-- Insert this line after script imports -->
+    <script>if (window.module) module = window.module;</script>
+    </head>
+    <body>  
+        <script>
+        window.addEventListener('message', function(event){
+            var ctn = (event.data.Content == "")? event.data.Description : event.data.Content
+             document.body.innerHTML = '<h3>'+event.data.Title+'</h3> <div>' +ctn+ '</div>';
+        }); 
+        window.onload = function(){
+            window.opener.postMessage("load",window.location.href)
+        }
+        const electron =  require('electron');
+        const remote = electron.remote;
+        var shell = electron.shell;
+        //open links externally by default
+        $(document).on('click', 'a[href^="http"]', function(event) {
+            event.preventDefault();
+            shell.openExternal(this.href);
+        });
+
+        remote.getCurrentWindow().setMenuBarVisibility(false)
+
+        </script>
+    </body>
+</html>

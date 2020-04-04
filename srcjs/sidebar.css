@@ -1,0 +1,21 @@
+
+ #app .sidebar{
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px; 
+    width: 200px;
+  }
+  #app .sidebar:hover{
+    overflow-y: auto; 
+  }
+  #app .resizer{
+     position: absolute;
+     top :0px;
+     bottom: 0px;
+     right: 0px;
+     width: 10px;
+     background-color: #b2d6ee;
+     cursor: ew-resize;
+  }
+ 

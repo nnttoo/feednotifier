@@ -1,0 +1,45 @@
+.feedcompctn{
+    padding-top: 10px;
+    background-color : #022c44; 
+}
+
+.feedcompctn .urltitle{
+    font-size: 13px;
+    color: coral;
+    padding: 5px; 
+    background-color: black;
+}
+.feedcompctn .item{
+    background-color: #fff9f9;
+    margin-bottom: 5px; 
+}
+.feedcompctn .itemtitle{ 
+    color: #302902; 
+    margin-bottom: 3px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 5px; 
+}
+.feedcompctn .newctn{
+    color: #7e0049;
+}
+
+.feedcompctn .itemdesc{
+    padding: 5px; 
+}
+.feedcompctn .itembtn{  
+    background-color: #ffe0f2;
+    text-align: right;
+} 
+.feedcompctn .itempubdate{
+    font-size: 12px;
+    font-weight: bold;  
+}
+.feedcompctn .itempublisher{
+    width: 200px;
+    overflow: hidden;
+    font-size: 12px;    
+    font-weight: bold; 
+    text-align: left;
+    padding-left: 5px;
+}
