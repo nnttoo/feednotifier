@@ -7,7 +7,6 @@ const {app, BrowserWindow, Menu ,dialog} =electron
 const createDesktop = require('./linuxdesktopbuilder')
 app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
 
-var fs = require('fs');
 const path = require('path')
 app.on('ready', startServer)
 var spawn = require('child_process').spawn
