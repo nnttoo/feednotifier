@@ -1,7 +1,7 @@
 ### FeedNotifier
  
 
-Feednotifier is an open source software that functions to give you notifications when there is something new.
+Feednotifier is an open source software to give you notifications when there is something new from rss feed.
 
 FeedNotifier runs on Windows, Linux and Mac
 

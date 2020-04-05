@@ -7,6 +7,6 @@ export default class RssContent{
         this.ShortDescription = ""
         this.NewContent = false;
         this.PubDate = ""
-        this.PubdateParsed = 0
+        this.PubdateParsed = 0 
     }
 }

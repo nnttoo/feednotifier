@@ -27,13 +27,15 @@ export default class AppCtx{
          * @type {string[]}
         */
         this.listOldurl = [];
+        this.listNotifiedUrl = []
 
         this.classInit = {
             /** @type {SettingBut} */
             settingBut : null, 
             /** @type {FeedCompFrame} */
             FeedCompFrame : null
-        }
+        } 
+
     }
 
     async loadOrSaveOldUrl(saveMode){
@@ -66,6 +68,10 @@ export default class AppCtx{
      * @param {RssInfo} rssinfo 
      */
     notifiSound(rssctn,rssinfo,rssinfoID){
+        if(rssctn == null || this.listNotifiedUrl.includes(rssctn.Link)){
+            return;
+        }
+        this.listNotifiedUrl.push(rssctn.Link);
         let myNotification = new Notification(rssinfo.title, {
             body: rssctn.Title
         })
@@ -115,22 +121,18 @@ export default class AppCtx{
  
 
         /** @param {RssInfo} rssinfo */
-        var everyRssInfo= (rssinfo, ID)=>{ 
-            var notifRssCtn = null;
+        var everyRssInfo= (rssinfo, ID)=>{  
             for(var i=0;i<rssinfo.rssContents.length;i++){
                 var curcontent = rssinfo.rssContents[i];
                 parsePubDate(curcontent)
 
-                if(!this.listOldurl.includes(curcontent.Link)){    
-                    notifRssCtn = curcontent;
-                    curcontent.NewContent = true; 
+                if(!this.listOldurl.includes(curcontent.Link)){   
+                    curcontent.NewContent = true;  
+                    this.notifiSound(curcontent,rssinfo,ID);
                 } else {
                     curcontent.NewContent = false;
                 }
-            } 
-            if(notifRssCtn != null){
-                this.notifiSound(notifRssCtn,rssinfo,ID);
-            }
+            }  
             
         }
 
