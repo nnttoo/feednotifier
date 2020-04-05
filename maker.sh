@@ -1,3 +1,4 @@
+export PATH="$(pwd)/node_modules/.bin:$PATH"
 
 case "$1" in
 "WebPackWatch")
@@ -15,6 +16,16 @@ case "$1" in
 	cd ../electronbuilder 
 	rm FeedNotifier.exe
 	npm run package-linux
+	;;
+
+"DeployMac")
+	webpack --mode production 
+	cd src 
+	make mac 
+	cd ../electronbuilder 
+	rm ./FeedNotifier.exe
+	rm ./FeedNotifier
+	npm run package-mac
 	;;
 
 "DeployWindow32")
