@@ -10,6 +10,12 @@ FeedNotifier runs on Windows, Linux and Mac
 
 ![alt text](https://github.com/nnttoo/feednotifier/blob/media/MyImage/setting.png?raw=true "Setting window")
 
+## install
+to install Rssnotifier go to release page and download file depends on your system
+https://github.com/nnttoo/feednotifier/releases/latest
+
+## Build From Source:
+
 download or clone the repository
 
 ``` 
