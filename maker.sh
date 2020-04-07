@@ -43,6 +43,10 @@ case "$1" in
 	cd ../electronbuilder/ 
 	npm start debug=debug
 	;;   
+"run")
+	cd src
+	make run
+	;;
 
 ##create INSTALL.sh for linux user
 "CreateLinuxRun")

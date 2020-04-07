@@ -61,7 +61,7 @@ raspi:
 #jangan pake DIRTARGET sebab ini beda direktory
 run:
 	cd ../; \
-	$(TARGETFOLDER)/linux/gui/resources/app/$(BINFILE) 
+	$(TARGETFOLDER)/$(BINFILE) 
 
 clean:
 	rm  -f $(DIRTARGET)/raspi/$(BINFILE)

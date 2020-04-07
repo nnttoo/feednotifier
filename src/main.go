@@ -7,6 +7,9 @@ import (
 	rice "github.com/GeertJohan/go.rice"
 )
 
+//Version application version number
+var Version = "0.0003"
+
 func runServer(ln net.Listener) {
 	ricebox := rice.MustFindBox("../views/")
 	fs := http.FileServer(ricebox.HTTPBox())
@@ -21,7 +24,10 @@ func main() {
 
 	ln, _ := net.Listen("tcp", "127.0.0.1:0")
 	url := "http://" + ln.Addr().String()
-	OpenElectronWindow(url, "420", "700")
+	OpenElectronWindow(url, 420, 700)
+
+	go CheckUpdate()
+
 	runServer(ln)
 
 	// // Create UI with basic HTML passed via data URI

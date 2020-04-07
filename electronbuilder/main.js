@@ -129,7 +129,10 @@ var exposeFun = {
             ls.kill('SIGINT')
             mainWindow = null
         }) 
-    }
+    },
+
+    showMsgUpdate : require('./showUpdateDialog')
+
 }
  
  
