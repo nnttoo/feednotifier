@@ -8,7 +8,7 @@ import (
 )
 
 //Version application version number
-var Version = "0.0003"
+var Version = "v0.0003"
 
 func runServer(ln net.Listener) {
 	ricebox := rice.MustFindBox("../views/")

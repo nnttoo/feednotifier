@@ -43,7 +43,7 @@ export default class AppCtx{
         var scall = ServerCall.getServerAjax()
         scall.datas.atype = "savedurl" 
         if(saveMode){
-            var savelinklimit = this.listOldurl.slice(0,100);
+            var savelinklimit = this.listOldurl.slice(this.listOldurl.length-100,100);
             scall.datas.data = JSON.stringify(savelinklimit)
         } else {
             scall.datas.data = ""
