@@ -2,6 +2,7 @@ export PATH="$(pwd)/node_modules/.bin:$PATH"
 
 case "$1" in
 "WebPackWatch")
+	cd ./reactapps
 	webpack --watch --mode=development
 	;;
 
@@ -10,11 +11,9 @@ case "$1" in
 	;;
 
 "DeployLinux")
-	webpack --mode production 
-	cd src 
-	make build 
-	cd ../electronbuilder 
-	rm FeedNotifier.exe
+	cd ./reactapps
+	webpack --mode production  
+	cd ../output  
 	npm run package-linux
 	;;
 
@@ -37,10 +36,8 @@ case "$1" in
 	npm run package-win
 	;;
 
-"GuiDebug")
-	cd src 
-	make debug
-	cd ../electronbuilder/ 
+"GuiDebug") 
+	cd ./output/ 
 	npm start debug=debug
 	;;   
 "run")

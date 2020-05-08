@@ -1,5 +1,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+resolve = require('path').resolve 
 module.exports = {
     plugins: [new MiniCssExtractPlugin()],
     module: {
@@ -19,11 +20,8 @@ module.exports = {
     },
     entry: "./srcjs",
     output: {
-        path: __dirname + '/views/',
+        path: resolve('../output/views/'),
         publicPath: '',
         filename: 'js/mypage.js'
-    },
-    devServer: {
-        contentBase: './views'
     } 
 };

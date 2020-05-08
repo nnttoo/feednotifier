@@ -11,11 +11,13 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": { 
+  "dependencies": {
+
+    "express": "^4.17.1"
   },
-  "devDependencies": { 
+  "devDependencies": {
     "electron-packager": "^13.1.1",
-    "electron-rebuild": "^1.8.4", 
+    "electron-rebuild": "^1.8.4",
     "electron": "^4.1.4"
   }
 }

@@ -3,63 +3,41 @@ process.env.NODE_ENV = 'production';
 
 const electron = require('electron')
 const {app, BrowserWindow, Menu ,dialog} =electron
+
+const express = require('express')
+const expressapp = express()
+const port = 0
  
 const createDesktop = require('./linuxdesktopbuilder')
-app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required');
+
+app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required'); // audio auto play
 
 const path = require('path')
-app.on('ready', startServer)
-var spawn = require('child_process').spawn
+app.on('ready', startServer) 
 
-
-
-
-/**
- * @typedef {Object} ElectResponseArg
- * @property {string} fname
- * @property {Object[]} args
- */
-
-var ls;
+ 
+ 
 function startServer(){
-    var ext = ""
-    if(process.platform === "win32"){
-        ext = ".exe";
-    } else if (process.platform === "darwin"){
-        ext = '_darwin';
-    }
+    expressapp.get('/', (req, res) => res.send('Hello World!'))
 
-    var pathexec = path.join(__dirname, 'FeedNotifier' + ext ); 
-    ls    = spawn(pathexec);
-    ls.stdout.on('data', function (data) {
-        /** @type {string} */
-        var stdout = data.toString(); 
-        if(stdout.startsWith("ELECTRONRESPONSE:")){
-            var jsoncode = stdout.substring("ELECTRONRESPONSE:".length);
-            
-            try {                
-                /** @type {ElectResponseArg} */
-                var electresponse = JSON.parse(jsoncode);
-                exposeFun[electresponse.fname](electresponse.args);
-            } catch (error) {
-                console.log(error);
-                console.log(jsoncode);
-                console.log(electresponse);
+    var server = expressapp.listen(port, () => {
 
-             }
+        var option = { 
+            webPreferences: {
+            nodeIntegration: true
+            },
+            icon : path.join(__dirname, 'icon.png'),
+            fullscreen : false , 
+            kiosk : false 
+        } 
 
-        } else {
-            console.log(stdout) 
-        }
-    });
-  
-    ls.stderr.on('data', function (data) {
-        console.log('stderr: ' + data.toString());
-    });
+
+        var mainWindow = new BrowserWindow(option)
+        mainWindow.loadURL('http://localhost:'+server.address().port)
+
+        console.log(`Example app listening at http://localhost:${server.address().port}`)
     
-    ls.on('exit', function (code) {
-        console.log('child process exited with code ');
-    });
+    }) 
 }
 
     
