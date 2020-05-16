@@ -1,5 +1,4 @@
 node_modules/
 release-builds/
-FeedNotifier
-FeedNotifier.exe
-FeedNotifier_darwin
+package-lock.json
+
