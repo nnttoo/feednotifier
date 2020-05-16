@@ -2,12 +2,19 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 resolve = require('path').resolve 
 module.exports = {
-    plugins: [new MiniCssExtractPlugin()],
+    plugins: [new MiniCssExtractPlugin({
+        filename: 'main.css',
+    })],
     module: {
         rules: [
             {
                 test: /\.css$/i,
-                use: [MiniCssExtractPlugin.loader, 'css-loader'],
+                use: [
+                    {
+                      loader: MiniCssExtractPlugin.loader
+                    },
+                    'css-loader',
+                  ],
             },
             {
                 test: /\.js$/,
@@ -15,13 +22,19 @@ module.exports = {
                 use: {
                     loader: "babel-loader"
                 }
-            } 
+            },
+            {
+                test: /\.(ttf|eot|svg|gif|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                use: [{
+                    loader: 'file-loader',
+                }]
+            },
         ]
     },
     entry: "./srcjs",
     output: {
-        path: resolve('../output/views/'),
+        path: resolve('../output/views/webpack'),
         publicPath: '',
-        filename: 'js/mypage.js'
+        filename: 'mypage.js'
     } 
 };

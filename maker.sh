@@ -3,7 +3,7 @@ export PATH="$(pwd)/node_modules/.bin:$PATH"
 case "$1" in
 "WebPackBuild")	
 	cd ./reactapps
-	webpack --mode development
+	webpack --mode production
 	;;
 "WebPackWatch")
 	cd ./reactapps

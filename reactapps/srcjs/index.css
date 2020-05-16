@@ -1,4 +1,12 @@
 
+@font-face {
+    font-family: 'RobotoRegular'; 
+    src: url('Roboto-Regular.ttf')  format('truetype'); /* Safari, Android, iOS */  
+}
+@font-face {
+    font-family: 'pamelo'; 
+    src: url('pamelo.ttf')  format('truetype'); /* Safari, Android, iOS */ 
+}
 body{
     height: 100%;
     overflow: hidden;
