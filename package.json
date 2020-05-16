@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "WebPackWatch": "./maker.sh  WebPackWatch",
+    "WebPackBuild": "./maker.sh  WebPackBuild",
     "DeployLinux": "./maker.sh DeployLinux",
     "DeployWindow32": "./maker.sh  DeployWindow32",
     "GuiDebug": "./maker.sh  GuiDebug"

@@ -1,4 +1,4 @@
-///<reference path="../../views/js/jquery-3.3.1.min.js"/> 
+///<reference path="../../../output/views/js/jquery-3.3.1.min.js"/> 
 /** 
  * @callback OnResultCb
  * @param {String} result
@@ -19,6 +19,8 @@ export default class ServerCall{
             atype : "",
             arg : "" 
         } 
+
+        console.log("ini test require") 
  
     } 
 
