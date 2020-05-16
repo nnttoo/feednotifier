@@ -37,7 +37,9 @@ case "$1" in
 	;;
 
 "GuiDebug") 
-	cd ./output/ 
+	cd ./electronapps
+	webpack --mode production 
+	cd ../output/ 
 	npm start debug=debug
 	;;   
 "run")

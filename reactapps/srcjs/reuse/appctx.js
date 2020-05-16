@@ -1,7 +1,7 @@
 import RssInfo from "./rssinfo";
 import ServerCall from "./server_call";
 import { Mask } from "./toast";
-import RssContent from "./rsscontent"; 
+import RssContent from "./rsscontent";  
 
 /**
  * @typedef {import('../settingBut').default SettingBut}
@@ -16,6 +16,7 @@ export default class AppCtx{
             maxfeed : 5,
             refreshtime : 60
         } 
+ 
 
         this.configloaded = false;
         this.interval = null;
