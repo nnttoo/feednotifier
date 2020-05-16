@@ -1,4 +1,4 @@
-### Upwork FeedNotifier
+# Upwork FeedNotifier
   
 Feednotifier is an open source software to give you notifications when there is something new from rss feed.
 
