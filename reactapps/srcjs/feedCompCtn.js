@@ -26,7 +26,7 @@ export default class FeedCompCtn extends MyComponent{
 
     /**  @param {RssContent} rssinfo  */
     clickContent(rssinfo){
-        var w = window.open("/contentviewer.html","purchaseWin2", "location=0,status=0,scrollbars=0,width=400,height=700");
+        var w = window.open("contentviewer.html","purchaseWin2", "location=0,status=0,scrollbars=0,width=400,height=700");
         var f = function(){ 
             w.postMessage(rssinfo,window.location.href)
             window.removeEventListener("message",f) 

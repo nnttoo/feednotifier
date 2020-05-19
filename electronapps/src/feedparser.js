@@ -1,4 +1,4 @@
-const HTMLParser = require('node-html-parser');
+ 
 
 function getStringFromUrl(url){
     return new Promise((resolve, reject) => {
@@ -29,21 +29,73 @@ function getStringFromUrl(url){
         });
     });
 }
+ 
+
+var DOMParser = require('xmldom').DOMParser;
+const FeedCtn = require('./feedCtn')
+
+
+/**
+ * 
+ * @param {Element} elem 
+ * @param {String} selector 
+ */
+function simpleGetString(elem, tagname){ 
+
+    /** @type {HTMLCollectionOf<HTMLElement>} */
+    var selected = elem.getElementsByTagName(tagname)
+    if(selected.length > 0){         
+        return  selected[0].textContent
+    }
+    return ''
+}
 
 
 class FeedParser{
-    constructor(){ 
-        this.strContent = ""
+    constructor(){  
+        this.feedRoot = null;
+    }
+
+    getTitle(){   
+        return simpleGetString(this.feedRoot,'title'); 
+    }
+
     
+
+
+    /** @param {Number} max */
+    getContents(max){  
+        var items = this.feedRoot.getElementsByTagName('item');
+        if(max > items.length){
+            max = items.length;
+        }
+
+        var result = []
+
+        for(var i=0;i<max;i++){
+            var curItem = items[i]            
+            var feedCtn = new FeedCtn();
+
+            feedCtn.Title = simpleGetString(curItem,'title'); 
+            feedCtn.Link = simpleGetString(curItem,'link'); 
+            feedCtn.Content = simpleGetString(curItem,'content:encoded'); 
+            feedCtn.Description = simpleGetString(curItem,'description'); 
+            feedCtn.PubDate = simpleGetString(curItem,'pubDate');   
+
+            var cleanDesk = feedCtn.Description.replace(/<[^>]*>?/gm, '');
+
+            feedCtn.ShortDescription = cleanDesk.substr(0,100)            
+            result.push(feedCtn)
+
+        }
+
+        return JSON.stringify(result)
     }
 
-    async getTitle(){
-
-    }
 
     async loadUrl(url){
-        this.strContent = await getStringFromUrl(url)
-        console.log(this.strContent);
+        var strContent = await getStringFromUrl(url)   
+        this.feedRoot = new DOMParser().parseFromString(strContent) 
     }
 }
 

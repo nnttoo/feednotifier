@@ -3,7 +3,7 @@
 const electron = require('electron')
 const {app, BrowserWindow, Menu ,dialog} =electron
 
-require('./bridge')
+require('./bridgeAjax')
  
 
 app.commandLine.appendSwitch('autoplay-policy', 'no-user-gesture-required'); // audio auto play

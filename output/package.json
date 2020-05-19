@@ -11,8 +11,8 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": { 
-    "node-html-parser": "^1.2.16"
+  "dependencies": {   
+    "xmldom": "^0.3.0"
   },
   "devDependencies": {
     "electron-packager": "^13.1.1",

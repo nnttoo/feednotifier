@@ -53,8 +53,7 @@ export default class ServerCall{
 
         return new Promise(function(resolve,reject){
             /** Listen type  */
-            ipcRenderer.on(thiss.datas.atype, (event, arg) => { 
-                console.log(arg)  
+            ipcRenderer.on(thiss.datas.atype, (event, arg) => {  
                 resolve(arg);
             })
             ipcRenderer.send(thiss.url, JSON.stringify(thiss.datas)) 
