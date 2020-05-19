@@ -1,4 +1,6 @@
 export PATH="$(pwd)/node_modules/.bin:$PATH"
+ 
+
 
 case "$1" in
 "WebPackBuild")	
@@ -41,11 +43,17 @@ case "$1" in
 	;;
 
 "GuiDebug") 
+	# cd ./reactapps
+	# webpack --mode production
 	cd ./electronapps
 	webpack --mode production 
 	cd ../output/ 
 	npm start debug=debug
 	;;   
+"test")
+	cd ./unitTest
+	npm test
+	;;
 "run")
 	cd src
 	make run

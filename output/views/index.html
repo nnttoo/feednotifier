@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Feed Notifier</title>
-        <link rel="icon" href="/icon.ico" type="image/ico">  
+        <link rel="icon" href="icon.ico" type="image/ico">  
 
     <link href="webpack/main.css" rel="stylesheet">  
 
@@ -26,22 +26,10 @@
                 <source src="Beeper.wav" type="audio/wav">  
             </audio>
      
-        </hiddenarrea> 
-
- 
+        </hiddenarrea>  
         <script src="render.js"></script>
         <script src="webpack/mypage.js"></script>
 
 
-        <script>
-            console.log("test")
-
-
-        const { ipcRenderer } = require('electron')
-        ipcRenderer.on('asynchronous-reply', (event, arg) => {
-        console.log(arg) // prints "pong"
-        })
-        ipcRenderer.send('asynchronous-message', 'ping')
-        </script>
     </body>
 </html>

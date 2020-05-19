@@ -1,4 +1,3 @@
-///<reference path="../../../output/views/js/jquery-3.3.1.min.js"/> 
 /** 
  * @callback OnResultCb
  * @param {String} result
@@ -10,17 +9,21 @@ class ResponseObj{
         this.Msg = ""
     }
 }
- 
+  
+
+const { ipcRenderer } = require('electron')
 
 export default class ServerCall{
     constructor(){
-        this.url = "/ajax"
+        /**
+         * ipcMain.on('ajax')
+         * ubahh dari ajax ke IPC, jadi url adalah channel
+         */
+        this.url = "ajax" // url = ipc channel 
         this.datas = {
             atype : "",
             arg : "" 
-        } 
-
-        console.log("ini test require") 
+        }   
  
     } 
 
@@ -46,12 +49,15 @@ export default class ServerCall{
     /** @returns {Promise<string>} */
     callPromise(){
         var thiss = this;
+ 
+
         return new Promise(function(resolve,reject){
-            $.post(thiss.url,thiss.datas,(result)=>{ 
-                    resolve(result); 
-            }).fail(function(err){
-                reject(err)
+            /** Listen type  */
+            ipcRenderer.on(thiss.datas.atype, (event, arg) => { 
+                console.log(arg)  
+                resolve(arg);
             })
+            ipcRenderer.send(thiss.url, JSON.stringify(thiss.datas)) 
         })
     }
 
@@ -65,7 +71,6 @@ export default class ServerCall{
     }
 } 
 ServerCall.getServerAjax = function(){
-    var n = new ServerCall();
-    n.url = "/ajax";
+    var n = new ServerCall(); 
     return n;
 }

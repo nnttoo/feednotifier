@@ -19,19 +19,63 @@ class ServerSys{
         this.appdirpath = appdir;
     }
 
-    async getlistrss(){
-        var listfeedjsonpath = path.join(this.appdirpath,'listfeed.json')
-        if(!fs.existsSync(listfeedjsonpath)){
-            return ''
-        }
 
-        var ctn = await  new Promise((resolve,reject)=>{
-            fs.readFile(listfeedjsonpath,(err,data)=>{
-                resolve(data.toString())
-            })
+    simpleReadExistFile(filename){ 
+        var filepath = path.join(this.appdirpath,filename);
+        return new Promise(function(resolve,reject){
+            fs.exists(filepath,(ex)=>{
+                if(ex){
+                    fs.readFile(filepath,function(err,data){
+                        resolve(data.toString())
+                    })
+                } else {
+                    resolve("")
+                }
+            })            
         }) 
+    }
 
-        return ctn
+    simpleWriteFile(filename, datastring){
+        var filepath = path.join(this.appdirpath,filename);
+        return new Promise(function(resolve,reject){
+            fs.writeFile(filepath,datastring, function(er){
+                if(er) {
+                    reject(er)
+                } else {
+                    resolve("")
+                }
+            })
+        })
+    }
+
+    savelistrss(arg,data){
+        return this.simpleWriteFile('listfeed.json',arg)
+    }
+
+    getlistrss(){ 
+        return this.simpleReadExistFile('listfeed.json') 
+    }
+
+    savedurl(arg,data){
+        var fname = 'savedurl.json'
+        if(data == null || data == ''){             
+            return this.simpleReadExistFile(fname) 
+        } else {
+            return this.simpleWriteFile(fname,data)
+        }  
+    }
+
+    config(arg, data){ 
+        var fileconfigname = 'config.json'
+
+        if(data == null || data == ''){             
+            return this.simpleReadExistFile(fileconfigname) 
+        } else {
+            return this.simpleWriteFile(fileconfigname,data)
+        } 
+    }
+    async feedctn(){
+        return ''
     }
 
 }

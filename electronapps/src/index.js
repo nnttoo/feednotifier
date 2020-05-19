@@ -20,10 +20,12 @@ function openElectron(){
         },
         icon : path.join(__dirname, 'icon.png'),
         fullscreen : false , 
-        kiosk : false 
+        kiosk : false,
+        width : 470,
+        height : 700
     } 
-
-
+ 
+ 
     var mainWindow = new BrowserWindow(option)
     mainWindow.loadFile('views/index.html')
     console.log("udah kebuka")
@@ -105,6 +107,5 @@ var exposeFun = {
  
  
 app.on('window-all-closed', function () { 
-  if (process.platform !== 'darwin') app.quit();  
-  ls.kill('SIGINT')
+  if (process.platform !== 'darwin') app.quit();   
 }) 

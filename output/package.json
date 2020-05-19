@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": { 
+    "node-html-parser": "^1.2.16"
   },
   "devDependencies": {
     "electron-packager": "^13.1.1",

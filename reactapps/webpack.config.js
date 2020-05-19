@@ -2,6 +2,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 resolve = require('path').resolve 
 module.exports = {
+    /** agar require electon bisa bekerja */
+    externals: ['electron'],
     plugins: [new MiniCssExtractPlugin({
         filename: 'main.css',
     })],

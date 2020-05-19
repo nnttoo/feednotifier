@@ -2,7 +2,7 @@
 resolve = require('path').resolve 
 module.exports = {
     target: "node",
-    externals: ['electron','express'],
+    externals: ['electron'],
     entry: "./src",
     optimization: {
         minimize: true
@@ -11,5 +11,11 @@ module.exports = {
         path: resolve('../output/'),
         publicPath: '',
         filename: 'bundle.js'
-    } 
+    } ,
+
+    node: {
+        global: false,
+        __filename: false,
+        __dirname: false,
+      }
 };
