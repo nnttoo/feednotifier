@@ -1,6 +1,13 @@
 export PATH="$(pwd)/node_modules/.bin:$PATH"
  
-
+buildWebpack(){
+	cd ./backendApps
+	webpack --mode production
+	cd ../
+	cd ./reactapps
+	webpack --mode production
+	cd ../
+}
 
 case "$1" in
 "WebPackBuild")	
@@ -9,7 +16,7 @@ case "$1" in
 	;;
 "WebPackWatch")
 	cd ./reactapps
-	webpack --watch --mode=development
+	webpack --watch --mode=production
 	;;
 
 "WebpackServ")
@@ -43,20 +50,17 @@ case "$1" in
 	;;
 
 "GuiDebug") 
-	# cd ./reactapps
-	# webpack --mode production
-	cd ./electronapps
-	webpack --mode production 
-	cd ../output/ 
+	buildWebpack
+	cd ./output/ 
 	npm start debug=debug
 	;;   
 "test")
 	cd ./unitTest
 	npm test
 	;;
-"run")
-	cd src
-	make run
+"TestRun")
+	cd ./output/ 
+	npm start debug=debug
 	;;
 
 ##create INSTALL.sh for linux user

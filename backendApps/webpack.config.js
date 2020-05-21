@@ -3,14 +3,16 @@ resolve = require('path').resolve
 module.exports = {
     target: "node",
     externals: ['electron'],
-    entry: "./src",
+    entry: {
+      bundle: './src/index.js',
+    },
     optimization: {
         minimize: true
       },
     output: {
         path: resolve('../output/'),
         publicPath: '',
-        filename: 'bundle.js'
+        filename: '[name].js'
     } ,
 
     node: {

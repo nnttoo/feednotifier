@@ -68,7 +68,9 @@ class BridgeAjax{
         })
     }
 
-    /** Expose to ipcMain 1 */
+    /** Expose to ipcMain 1 
+     * Expose to ipcMain is a function called via ipcmain
+    */
     async checkurl(){
         if(this.ajaxData == null || this.ajaxData.arg == null){
             return;
@@ -130,13 +132,23 @@ class BridgeAjax{
         return feedparse.getContents(max) 
     }
 
+    testslowdon(){
+        for (var i = 0; i < 100000; i++) {
+            console.log('ssssssssss')
+            const x = {
+              y:
+                Math.ceil(i) +
+                'sdsfjdlfjlkMNFONnsdno'.slice(4, (Math.random() * 20) | 0)
+            };
+        }
+    }
+
 }
 
 var bridgeAjax = new BridgeAjax();
 
  
 ipcMain.on('ajax', async (event, arg) => { 
-
     /** @type {AjaxData} */
     var aData = null;
     try {         

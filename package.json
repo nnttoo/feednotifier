@@ -8,12 +8,14 @@
     "WebPackBuild": "./maker.sh  WebPackBuild",
     "DeployLinux": "./maker.sh DeployLinux",
     "DeployWindow32": "./maker.sh  DeployWindow32",
-    "GuiDebug": "./maker.sh  GuiDebug"
+    "GuiDebug": "./maker.sh  GuiDebug",
+    "TestRun": "./maker.sh  TestRun"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.17.1",
     "xmldom": "^0.3.0"
   },
   "devDependencies": {

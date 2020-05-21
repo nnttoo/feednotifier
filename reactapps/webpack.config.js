@@ -22,7 +22,11 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: "babel-loader"
+                    loader: "babel-loader",
+                    options: {
+                        presets: ['@babel/preset-env', "@babel/preset-react"]                       
+
+                    }
                 }
             },
             {
@@ -33,7 +37,11 @@ module.exports = {
             },
         ]
     },
+    target : 'electron-renderer',
     entry: "./srcjs",
+    optimization: {
+        minimize: true
+    },
     output: {
         path: resolve('../output/views/webpack'),
         publicPath: '',

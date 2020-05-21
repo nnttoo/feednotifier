@@ -1,4 +1,4 @@
-///<reference path="../views/js/jquery-3.3.1.min.js"/>
+///<reference path="../../output/views/jquery-3.3.1.min.js"/>
 import React from 'react';
 import ReactDOM from 'react-dom'; 
 import './settingpage.css'
@@ -19,7 +19,8 @@ export default class SettingPage extends MyComponent{
         this.jsxfunc = { 
             addbut : this.butClickAddrss.bind(this),
             iptmax : this.iptMaxChange.bind(this),
-            iptrefesh : this.iptRefeshChange.bind(this) 
+            iptrefesh : this.iptRefeshChange.bind(this),
+            tslowdown : this.testSlowdown.bind(this)
         }
 
             /** @type {RssInfo[]} */
@@ -29,6 +30,16 @@ export default class SettingPage extends MyComponent{
         this.spageAnimate = new SettingAnimate() 
         this.spageAnimate.appctx = this.AppCtx;
     } 
+
+    async testSlowdown(){
+        var mask = Mask.StartLoding();
+
+        var myajax = ServerCall.getServerAjax()
+        myajax.datas.atype = "testslowdon"
+        await myajax.callPromise()
+        mask.remove()
+
+    }
 
     /**
      * 
@@ -217,6 +228,10 @@ export default class SettingPage extends MyComponent{
                         </div>
                     </div>
 
+                    <div>
+                    TestAja
+                    <button onClick={this.jsxfunc.tslowdown}>TestSlowdown</button>
+                </div>
                 </div>
                 <div className="bottomel tbframe"> 
                     <div className="tc tcnwrap tcvm">
@@ -230,6 +245,8 @@ export default class SettingPage extends MyComponent{
                         <button onClick={this.jsxfunc.addbut} className="btn btn-primary">add</button>
                     </div>
                 </div>
+
+
             </div>
             </div>
         )

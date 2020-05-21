@@ -3,7 +3,8 @@ const electron = require('electron')
 var shell = electron.shell;
 const remote = electron.remote
 const Menu = remote.Menu;
-const clipboard = electron.clipboard
+const clipboard = electron.clipboard;
+const BrowserWindow = remote.BrowserWindow
 
 function focusWindow(){
     var w = remote.getCurrentWindow();
@@ -22,6 +23,25 @@ function openLinkExternal(link){
         return
     }
     shell.openExternal(link);
+}
+
+function openBrowserWindow(){
+    var option = { 
+        webPreferences: {
+        nodeIntegration: false
+        }, 
+        fullscreen : false , 
+        kiosk : false,
+        width : 470,
+        height : 700,
+        y : 0,
+        x : 200
+    } 
+ 
+ 
+    var mainWindow = new BrowserWindow(option)
+    mainWindow.loadFile('views/contentviewer.html')
+    console.log("udah kebuka")
 }
 
 
