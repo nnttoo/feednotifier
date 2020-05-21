@@ -24,28 +24,20 @@ case "$1" in
 	;;
 
 "DeployLinux")
-	cd ./reactapps
-	webpack --mode production  
-	cd ../output  
+	buildWebpack
+	cd ./output  
 	npm run package-linux
 	;;
 
 "DeployMac")
-	webpack --mode production 
-	cd src 
-	make mac 
-	cd ../electronbuilder 
-	rm ./FeedNotifier.exe
-	rm ./FeedNotifier
+	buildWebpack
+	cd ./output  
 	npm run package-mac
 	;;
 
 "DeployWindow32")
-	webpack --mode production 
-	cd src 
-	make win32 
-	cd ../electronbuilder 
-	rm FeedNotifier
+	buildWebpack
+	cd ./output  
 	npm run package-win
 	;;
 
