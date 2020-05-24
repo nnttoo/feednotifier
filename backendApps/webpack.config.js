@@ -1,18 +1,18 @@
-//var nodeExternals = require('webpack-node-externals'); 
 resolve = require('path').resolve 
 module.exports = {
     target: "node",
-    externals: ['electron'],
+    externals: ['express','electron',{'body-parser': 'bodyparser'}],
     entry: {
-      bundle: './src/index.js',
-    },
+      main: './srcelectron/index.js',
+      internalServer: './src/index.js',
+    }, 
     optimization: {
-        minimize: true
+        minimize: false
       },
     output: {
         path: resolve('../output/'),
         publicPath: '',
-        filename: '[name].js'
+        filename: 'bundle[name].js'
     } ,
 
     node: {

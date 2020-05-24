@@ -1,25 +1,8 @@
- 
-const { ipcMain } = require('electron')   
+
 const os = require('os')
 const path = require('path')
 var fs = require('fs');
-const FeedParser = require('./feedparser')
-
-
-/**
- * Convert ajax to ipcMain
- */
- 
-/**
- * 
- * 
- * @typedef {Object} AjaxData
- * @property {String} atype
- * @property {String} arg
- * @property {Object} data
- * 
- */
-
+const FeedParser = require('./feedparser') 
 
 class BridgeAjax{
     constructor(){
@@ -69,7 +52,8 @@ class BridgeAjax{
     }
 
     /** Expose to ipcMain 1 
-     * Expose to ipcMain is a function called via ipcmain
+     * Change to ajax... using express 24/Mei/2020 
+     *  
     */
     async checkurl(){
         if(this.ajaxData == null || this.ajaxData.arg == null){
@@ -145,31 +129,32 @@ class BridgeAjax{
 
 }
 
-var bridgeAjax = new BridgeAjax();
-
  
-ipcMain.on('ajax', async (event, arg) => { 
-    /** @type {AjaxData} */
-    var aData = null;
-    try {         
-        aData = JSON.parse(arg);
-    } catch (error) {}
+ 
+module.exports = BridgeAjax
+
+// ipcMain.on('ajax', async (event, arg) => { 
+//     /** @type {AjaxData} */
+//     var aData = null;
+//     try {         
+//         aData = JSON.parse(arg);
+//     } catch (error) {}
     
-    if(aData == null) return;
+//     if(aData == null) return;
  
-    if(typeof bridgeAjax[aData.atype] !== 'function') {
-        console.log(aData.atype + " not found")
-        return
-    }
+//     if(typeof bridgeAjax[aData.atype] !== 'function') {
+//         console.log(aData.atype + " not found")
+//         return
+//     }
 
-    try {
+//     try {
 
-        bridgeAjax.ajaxData = aData;
-        var result = await bridgeAjax[aData.atype]()
-        event.sender.send(aData.atype, result)
-        bridgeAjax.ajaxData = null;
+//         bridgeAjax.ajaxData = aData;
+//         var result = await bridgeAjax[aData.atype]()
+//         event.sender.send(aData.atype, result)
+//         bridgeAjax.ajaxData = null;
         
-    } catch (error) { 
-        console.log(error)
-     } 
-})
+//     } catch (error) { 
+//         console.log(error)
+//      } 
+// })

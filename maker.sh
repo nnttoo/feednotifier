@@ -1,4 +1,5 @@
 export PATH="$(pwd)/node_modules/.bin:$PATH"
+
  
 buildWebpack(){
 	cd ./backendApps
@@ -11,8 +12,7 @@ buildWebpack(){
 
 case "$1" in
 "WebPackBuild")	
-	cd ./reactapps
-	webpack --mode production
+	buildWebpack
 	;;
 "WebPackWatch")
 	cd ./reactapps
@@ -61,6 +61,11 @@ case "$1" in
 	cd ./electronbuilder/release-builds
 	rm INSTALL.sh
 	echo -e "#!/bin/sh \n./feednotifier-linux-x64/feednotifier installmode=i" >> ./INSTALL.sh
-
+	;;
+"testBuild")
+	cd ./backendApps
+	webpack --mode production
+	cd ../
+	;;
 
 esac
