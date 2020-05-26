@@ -20,6 +20,7 @@ case "$1" in
 	;;
 
 "WebpackServ")
+	cd ./reactapps
 	webpack-dev-server --mode development --open
 	;;
 

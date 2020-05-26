@@ -46,5 +46,11 @@ module.exports = {
         path: resolve('../output/views/webpack'),
         publicPath: '',
         filename: 'mypage.js'
-    } 
+    }, 
+
+    devServer: {
+        publicPath: "/",
+        contentBase: resolve('../output/views/'),
+        hot: true
+    }
 };

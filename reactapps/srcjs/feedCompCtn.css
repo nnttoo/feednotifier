@@ -1,6 +1,6 @@
 .feedcompctn{
     padding: 10px;
-    background-color : #b5b5c2; 
+    background-color : #4e4e52; 
 }
 
 .feedcompctn .urltitle{
@@ -8,13 +8,13 @@
     color: #ffa786;
     padding: 5px; 
     background-color: black;
-    border-radius: 5px;
+    border-radius: 2px;
     margin-bottom: 3px;
 }
 .feedcompctn .item{
     background-color: #ffffff;
     margin-bottom: 15px; 
-    border-radius: 5px;
+    border-radius: 2px;
     overflow: hidden;
     padding: 10px;
 }
