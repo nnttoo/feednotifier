@@ -2,7 +2,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 resolve = require('path').resolve 
 module.exports = {
-    /** agar require electon bisa bekerja */
+    /** agar require electon bisa bekerja */ 
     externals: ['electron'],
     plugins: [new MiniCssExtractPlugin({
         filename: 'main.css',
@@ -37,7 +37,7 @@ module.exports = {
             },
         ]
     },
-    target : 'electron-renderer',
+    target : 'web',
     entry: "./srcjs",
     optimization: {
         minimize: true
@@ -51,6 +51,7 @@ module.exports = {
     devServer: {
         publicPath: "/",
         contentBase: resolve('../output/views/'),
-        hot: true
+        hot: false,
+        writeToDisk: true
     }
 };

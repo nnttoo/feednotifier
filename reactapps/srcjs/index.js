@@ -6,41 +6,52 @@ import "@babel/polyfill";
  */
 
 import React from 'react';
-import ReactDOM from 'react-dom'; 
-import "core-js";  
-import SettingBut from './settingBut';
-import './table.css'; 
-import AppCtx from "./reuse/appctx";
-import MyComponent from "./reuse/mycomponent";  
-import FeedCompFrame from "./feedCompFrame";
+import ReactDOM from 'react-dom';  
 import './index.css'
-import { Mask } from "./reuse/toast";
+import MyComponent from "./reuse/mycomponent";
 
 class App extends MyComponent { 
     constructor(props){
         super(props)  
-    }
+    }  
  
 
     async componentDidMount(){ 
-
-        var mask = Mask.StartLoding()
-        await this.AppCtx.getListRss()
-        await this.AppCtx.getAllRss()
-        mask.remove() 
+  
+        // var mask = Mask.StartLoding()
+        // await this.AppCtx.getListRss()
+        // await this.AppCtx.getAllRss()
+        // mask.remove()     
     }
 
     render(){  
         
         return (
-            <div>
-                <div className="appctn">
-                    <FeedCompFrame/>
-                </div> 
-                <div className="bottombar">
-                    FeedNotifier  
+            <div>            
+                <div id="leftBar">
+                    <div className="lhead">
+                        <img src="/icon.png"/>
+                        <div>Upwork JobNotifier</div>
+                    </div> 
+                    <div className="vscroll">
+                        <div className="item">
+                            <span className="icon-fire licon"></span>
+                            Rss Feed
+                        </div>
+
+                        <div className="item">
+                            <span className="icon-stats-dots licon"></span>
+                            Stats
+                        </div>
+                        <div className="item">
+                            <span className="icon-cog licon"></span>
+                            Setting
+                        </div> 
+                    </div>
                 </div>
-                <SettingBut /> 
+                <div id="appctn">
+                    
+                </div>              
             </div> 
         )
     } 
@@ -51,4 +62,4 @@ ReactDOM.render(
     document.getElementById("app")
 );  
 
- 
+ console.log("sssssss")
