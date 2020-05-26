@@ -47,6 +47,10 @@ class App extends MyComponent {
                             <span className="icon-cog licon"></span>
                             Setting
                         </div> 
+                        <div className="item">
+                            <span className="icon-user licon"></span>
+                            About
+                        </div> 
                     </div>
                 </div>
                 <div id="appctn">
