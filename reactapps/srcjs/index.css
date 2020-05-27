@@ -84,6 +84,7 @@
     bottom: 0px;
     right: 0px;
     background-color: #e6e3ee;
+    overflow: hidden;
 }
 .btn-xsm{ 
    display: inline-block;

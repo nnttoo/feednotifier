@@ -1,0 +1,166 @@
+.callmaskFixed{ 
+  position: fixed; 
+}
+.callmaskAbsolute{
+  position: absolute;
+}
+
+.callmask_mask {
+    background-color: rgba(0, 0, 0, 0.8);
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    display: block;
+    text-align: center; 
+}
+.callmask_mask::before{
+    content: ' ';
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle; 
+}
+.imgloading{
+    width: 100px;
+    vertical-align: middle;
+    display: inline-block;
+}
+.toastMask{
+    position:fixed;text-align:center;
+    left:0px;right:0px;z-index:1000;
+    top:50px;
+}
+.toastInnet{
+    border-radius: 10px;padding:5px 25px  5px 25px;
+    background : rgba(0,0,0,0.8);
+    display: inline-block; 
+    color:#fff;
+}
+
+
+
+
+/**
+.toastSpin{
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 3px solid #fcd75d;
+    border-radius: 50%;
+    border-top-color: #0c0a0a;
+    animation: spin 1s ease-in-out infinite;
+    -webkit-animation: spin 1s ease-in-out infinite;
+    }
+@keyframes spin {
+to { transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+to { -webkit-transform: rotate(360deg); }
+}
+**/
+
+
+/** TOAST LOADING  ***/
+
+.callmask_mask_white{
+
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.loadingmask {
+    height: 100vh;
+    width: 100vw;
+    font-family: Helvetica;
+  }
+  
+.loadingmask .loader {
+    height: 20px;
+    width: 250px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+.loadingmask  .loader--dot {
+    animation-name: maskloader;
+    animation-timing-function: ease-in-out;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    height: 20px;
+    width: 20px;
+    border-radius: 100%;
+    background-color: black;
+    position: absolute;
+    border: 2px solid white;
+  }
+.loadingmask  .loader--dot:first-child {
+    background-color: #8cc759;
+    animation-delay: 0.5s;
+  }
+.loadingmask  .loader--dot:nth-child(2) {
+    background-color: #8c6daf;
+    animation-delay: 0.4s;
+  }
+.loadingmask  .loader--dot:nth-child(3) {
+    background-color: #ef5d74;
+    animation-delay: 0.3s;
+  }
+.loadingmask  .loader--dot:nth-child(4) {
+    background-color: #f9a74b;
+    animation-delay: 0.2s;
+  }
+.loadingmask .loader--dot:nth-child(5) {
+    background-color: #60beeb;
+    animation-delay: 0.1s;
+  }
+.loadingmask .loader--dot:nth-child(6) {
+    background-color: #fbef5a;
+    animation-delay: 0s;
+  }
+.loadingmask .loader--text {
+    position: absolute;
+    top: 200%;
+    left: 0;
+    right: 0;  
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+  }
+.loadingmask  .loaderinfodot::after {
+    content: "";
+    font-weight: bold;
+    animation-name: maskloading-text;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+  }
+  
+  @keyframes maskloader {
+    15% {
+      transform: translateX(0);
+    }
+    45% {
+      transform: translateX(230px);
+    }
+    65% {
+      transform: translateX(230px);
+    }
+    95% {
+      transform: translateX(0);
+    }
+  }
+  @keyframes maskloading-text {
+    0% {
+      content: "";
+    }
+    25% {
+      content: ".";
+    }
+    50% {
+      content: "..";
+    }
+    75% {
+      content: "...";
+    }
+  }

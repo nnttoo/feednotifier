@@ -8,22 +8,14 @@ import "@babel/polyfill";
 import React from 'react';
 import ReactDOM from 'react-dom';  
 import './index.css'
-import './table.css' 
-import RssFeedCtn from "./feedCtn/rssFeedCtn";
+import './table.css'  
+import FeedCtn from "./feedCompCtn/feedCtn";
 
 class App extends React.Component { 
     constructor(props){
         super(props)  
     }  
  
-
-    async componentDidMount(){ 
-  
-        // var mask = Mask.StartLoding()
-        // await this.AppCtx.getListRss()
-        // await this.AppCtx.getAllRss()
-        // mask.remove()     
-    }
 
     render(){  
         
@@ -54,8 +46,8 @@ class App extends React.Component {
                         </div> 
                     </div>
                 </div>
-                <div id="appctn">
-                    <RssFeedCtn text="sss"/>
+                <div id="appctn"> 
+                    <FeedCtn/>
                 </div>              
             </div> 
         )
