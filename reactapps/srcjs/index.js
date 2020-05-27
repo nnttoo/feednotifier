@@ -4,13 +4,14 @@ import "@babel/polyfill";
  * import "@babel/polyfill";
  * add on the top for async wait work on your project
  */
-
+ 
 import React from 'react';
 import ReactDOM from 'react-dom';  
 import './index.css'
-import MyComponent from "./reuse/mycomponent";
+import './table.css' 
+import RssFeedCtn from "./feedCtn/rssFeedCtn";
 
-class App extends MyComponent { 
+class App extends React.Component { 
     constructor(props){
         super(props)  
     }  
@@ -54,7 +55,7 @@ class App extends MyComponent {
                     </div>
                 </div>
                 <div id="appctn">
-                    
+                    <RssFeedCtn text="sss"/>
                 </div>              
             </div> 
         )

@@ -1,0 +1,52 @@
+#feedctn{
+    background-color: #ebe7f5; 
+    height: 100%;
+    padding-top: 50px;
+}
+
+#feedctn .topbar{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px; 
+    background-color: #740153;
+    text-align: center;
+    color: #fff;
+    padding: 3px;
+}
+
+#feedctn .smlbtn{
+    background-color: blue;
+    color: #fff;
+}
+
+
+#feedctn .licon{
+    background-color: rgb(64, 87, 87);
+    font-size: 30px;
+    margin-right: 5px; 
+    display: inline-block;
+    vertical-align: middle; 
+    color: #f79a12;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+}
+
+#feedctn .menubut{
+    position: absolute;
+    right:  10px;
+    top : 2px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 25px; 
+    cursor: pointer;
+}
+
+#feedctn .menubut:hover{
+    background-color: #f79a12;
+}
