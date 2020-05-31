@@ -193,7 +193,9 @@ export default class SettingPage extends MyComponent{
                     </div>       
                 </div>            
             </div>)
-        });
+        }); 
+
+        
 
 
         return( 

@@ -23,8 +23,8 @@ export default class FeedCompFrame extends MyComponent{
     }
 
     scrollTo(feedid){ 
-        $('.appctn').animate({
-            scrollTop:  $('.appctn').scrollTop() + $("#feedframe" + feedid).offset().top 
+        $('.listItemParent').animate({
+            scrollTop:  $('.listItemParent').scrollTop() + $("#feedframe" + feedid).offset().top 
         }, "slow");
     }
 

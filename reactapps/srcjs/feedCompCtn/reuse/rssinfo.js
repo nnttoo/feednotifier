@@ -10,13 +10,15 @@ export default class RssInfo {
     } 
 
     countNewContent(){
-        var counter = 0;
+        var counter = 0; 
+        if(this.rssContents == null){
+            return 0;
+        }
         this.rssContents.forEach((e,i)=>{
             if(e.NewContent){
-                counter++;
+                counter++; 
             }
-        })
-
+        })   
         return counter;
     }
 
@@ -29,7 +31,7 @@ export default class RssInfo {
         var result = []
         obj.forEach((e,i)=>{
             var nclass = new RssInfo()
-            Object.assign(nclass,e)
+            Object.assign(nclass,e) 
             result.push(nclass)
         })
 

@@ -11,6 +11,10 @@ buildWebpack(){
 }
 
 case "$1" in
+"ReactBuild")
+	cd ./reactapps
+	webpack --mode production
+	;;
 "WebPackBuild")	
 	buildWebpack
 	;;

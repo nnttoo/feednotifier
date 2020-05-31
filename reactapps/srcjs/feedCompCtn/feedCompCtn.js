@@ -68,10 +68,10 @@ export default class FeedCompCtn extends MyComponent{
         this.AppCtx.saveAsOldContent(rsscontent)
         this.forceUpdate()
     }
-    
-    render(){ 
-        var elemenContent = [];
 
+    createListElem(){
+
+        var elemenContent = [];
         var curdate = new Date().getTime();
 
         /** @type {RssInfo} */
@@ -106,6 +106,18 @@ export default class FeedCompCtn extends MyComponent{
                 </div>
             )
         })
+
+        return elemenContent;
+    }
+    
+    render(){ 
+        var elemenContent = [];
+        try {
+            elemenContent = this.createListElem()
+        } catch (error) {  }
+
+        
+        var rssinfo = this.props.rssinfo;
 
         return(
             <div id={"feedframe" + this.props.elemid} className="feedcompctn">

@@ -1,3 +1,4 @@
+import AjaxData from './ajaxData';
 
 const os = require('os')
 const path = require('path')
@@ -125,13 +126,12 @@ class BridgeAjax{
                 'sdsfjdlfjlkMNFONnsdno'.slice(4, (Math.random() * 20) | 0)
             };
         }
-    }
+    } 
 
-}
+} 
+  
 
- 
- 
-module.exports = BridgeAjax
+export default BridgeAjax
 
 // ipcMain.on('ajax', async (event, arg) => { 
 //     /** @type {AjaxData} */

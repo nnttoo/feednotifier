@@ -1,4 +1,7 @@
-///<reference path="../../../../output/views/jquery-3.3.1.min.js"/> 
+
+import AjaxData from "../../../../backendApps/src/ajaxData";
+import { callSocketwithReply } from "../../socketconnect";
+
 /** 
  * @callback OnResultCb
  * @param {String} result
@@ -9,48 +12,23 @@ class ResponseObj{
         this.Success = false;
         this.Msg = ""
     }
-}
+} 
  
 
 export default class ServerCall{
     constructor(){
         this.url = "/ajax"
+        /** @type {AjaxData} */
         this.datas = {
             atype : "",
-            arg : "" 
+            arg : "",
+            callid : ""
         } 
  
-    } 
-
-    /**
-     * 
-     * @param {OnResultCb} onresult 
-     * @param {OnResultCb} onerror 
-     */
-    call(onresult,onerror){
-        $.post(this.url,this.datas,(result)=>{
-            if(onresult){
-                onresult(result);
-            }
-        }).fail(function() {
-             if(typeof onerror == 'undefined'){
-                 return;
-             }
-             onerror()
-
-          })
-    }
-
+    }  
     /** @returns {Promise<string>} */
-    callPromise(){
-        var thiss = this;
-        return new Promise(function(resolve,reject){
-            $.post(thiss.url,thiss.datas,(result)=>{ 
-                    resolve(result); 
-            }).fail(function(err){
-                reject(err)
-            })
-        })
+    callPromise(){ 
+        return callSocketwithReply(this.datas)
     }
 
     static parseResponse(str){

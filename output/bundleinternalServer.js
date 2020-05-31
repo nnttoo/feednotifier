@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 19);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1365,262 +1365,38 @@ try{
 /* 6 */,
 /* 7 */,
 /* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * 24/Mei/2020 
-    * now we use express, and with a separate process, because the main thread 
-    * on the electron sometimes makes the UI feel laggy.
-    * therefore we use express as a server and ajax instead of ipcMain.
- */
-
-
-const express = __webpack_require__(9)
-const expApp = express()
-const path = __webpack_require__(0) 
-const bodyParser = __webpack_require__(10);
-const port = 0
-
-const BridgeAjax = __webpack_require__(11) 
-/** class for response ajax */
-var bridgeAjax = new BridgeAjax();
- 
-expApp.use(bodyParser.urlencoded({ extended: true }));
-expApp.use('/',express.static(path.join(__dirname,'views')))
-
-
-/** 
- * @typedef {Object} AjaxData
- * @property {String} atype
- * @property {String} arg
- * @property {Object} data
- * 
- */
-
-expApp.post('/ajax', async function(req,res){ 
-
-    /** @type {AjaxData} */
-    var aData = req.body; 
-    try {
-        bridgeAjax.ajaxData = aData;
-        var result = await bridgeAjax[aData.atype]() 
-        bridgeAjax.ajaxData = null;
-
-        // send result string as response
-        res.send(result)
-        
-    } catch (error) { 
-        console.log(error)
-     } 
-})
-
-var listener = expApp.listen(port, () => {
-    var url = 'http://localhost:'+ listener.address().port;
-    console.log(url)
-
-    try {
-        
-    process.send(url) 
-    } catch (error) {
-        
-    }
-})
-
- 
-
-/***/ }),
-/* 9 */
 /***/ (function(module, exports) {
 
 module.exports = express;
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports) {
 
 module.exports = bodyparser;
 
 /***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 10 */
+/***/ (function(module, exports) {
 
-
-const os = __webpack_require__(12)
-const path = __webpack_require__(0)
-var fs = __webpack_require__(1);
-const FeedParser = __webpack_require__(13) 
-
-class BridgeAjax{
-    constructor(){
-        this.appdirpath = ''
-        this.getAppDir();
-        /** @type {AjaxData} */
-        this.ajaxData = null;
-    }
-
-
-    getAppDir(){
-        var homedir = os.homedir()
-        var appdir = path.join(homedir,'upworknotifier')
-        if(!fs.existsSync(appdir)){
-            fs.mkdirSync(appdir)
-        }
-        this.appdirpath = appdir;
-    }
-
-
-    simpleReadExistFile(filename){ 
-        var filepath = path.join(this.appdirpath,filename);
-        return new Promise(function(resolve,reject){
-            fs.exists(filepath,(ex)=>{
-                if(ex){
-                    fs.readFile(filepath,function(err,data){
-                        resolve(data.toString())
-                    })
-                } else {
-                    resolve("")
-                }
-            })            
-        }) 
-    }
-
-    simpleWriteFile(filename, datastring){
-        var filepath = path.join(this.appdirpath,filename);
-        return new Promise(function(resolve,reject){
-            fs.writeFile(filepath,datastring, function(er){
-                if(er) {
-                    reject(er)
-                } else {
-                    resolve("")
-                }
-            })
-        })
-    }
-
-    /** Expose to ipcMain 1 
-     * Change to ajax... using express 24/Mei/2020 
-     *  
-    */
-    async checkurl(){
-        if(this.ajaxData == null || this.ajaxData.arg == null){
-            return;
-        }
-
-
-        var feedparse = new FeedParser();
-        await feedparse.loadUrl(this.ajaxData.arg);     
-        return feedparse.getTitle();
-    }
-
-    /** Expose to ipcMain 2 */
-    savelistrss(){
-        if(this.ajaxData == null || this.ajaxData.arg == null){
-            return;
-        }
-        return this.simpleWriteFile('listfeed.json',this.ajaxData.arg)
-    }
-
-    /** Expose to ipcMain 3 */
-    getlistrss(){ 
-        return this.simpleReadExistFile('listfeed.json') 
-    }
-
-    /** Expose to ipcMain 4*/
-    savedurl(){
-        var fname = 'savedurl.json'
-        if(this.ajaxData.data == null || this.ajaxData.data == ''){             
-            return this.simpleReadExistFile(fname) 
-        } else {
-            return this.simpleWriteFile(fname,this.ajaxData.data)
-        }  
-    }
-
-    /** Expose to ipcMain  5*/
-    config(){ 
-        var fileconfigname = 'config.json'
-
-        if(this.ajaxData.data == null || this.ajaxData.data == ''){             
-            return this.simpleReadExistFile(fileconfigname) 
-        } else {
-            return this.simpleWriteFile(fileconfigname,this.ajaxData.data)
-        } 
-    }
-
-    /** Expose to ipcMain 6*/
-    async feedctn(){
-        if(this.ajaxData.arg == null){
-            return ''
-        }
-
-        var max = 10;
-        if(this.ajaxData.max != null){
-            max = Number(this.ajaxData.max);
-        }
-
-        var feedparse = new FeedParser();
-        await feedparse.loadUrl(this.ajaxData.arg);        
-        return feedparse.getContents(max) 
-    }
-
-    testslowdon(){
-        for (var i = 0; i < 100000; i++) {
-            console.log('ssssssssss')
-            const x = {
-              y:
-                Math.ceil(i) +
-                'sdsfjdlfjlkMNFONnsdno'.slice(4, (Math.random() * 20) | 0)
-            };
-        }
-    }
-
-}
-
- 
- 
-module.exports = BridgeAjax
-
-// ipcMain.on('ajax', async (event, arg) => { 
-//     /** @type {AjaxData} */
-//     var aData = null;
-//     try {         
-//         aData = JSON.parse(arg);
-//     } catch (error) {}
-    
-//     if(aData == null) return;
- 
-//     if(typeof bridgeAjax[aData.atype] !== 'function') {
-//         console.log(aData.atype + " not found")
-//         return
-//     }
-
-//     try {
-
-//         bridgeAjax.ajaxData = aData;
-//         var result = await bridgeAjax[aData.atype]()
-//         event.sender.send(aData.atype, result)
-//         bridgeAjax.ajaxData = null;
-        
-//     } catch (error) { 
-//         console.log(error)
-//      } 
-// })
+module.exports = ws;
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = require("os");
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
  
 
 function getStringFromUrl(url){
     return new Promise((resolve, reject) => {
-        const http      = __webpack_require__(14),
-              https     = __webpack_require__(15);
+        const http      = __webpack_require__(13),
+              https     = __webpack_require__(14);
 
         let client = http;
 
@@ -1648,8 +1424,8 @@ function getStringFromUrl(url){
 }
  
 
-var DOMParser = __webpack_require__(16).DOMParser;
-const FeedCtn = __webpack_require__(19)
+var DOMParser = __webpack_require__(15).DOMParser;
+const FeedCtn = __webpack_require__(18)
 
 
 /**
@@ -1719,19 +1495,19 @@ class FeedParser{
 module.exports = FeedParser
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports) {
 
 module.exports = require("http");
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports) {
 
 module.exports = require("https");
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 function DOMParser(options){
@@ -1979,8 +1755,8 @@ function appendElement (hander,node) {
 }//appendChild and setAttributeNS are preformance key
 
 //if(typeof require == 'function'){
-var htmlEntity = __webpack_require__(17);
-var XMLReader = __webpack_require__(18).XMLReader;
+var htmlEntity = __webpack_require__(16);
+var XMLReader = __webpack_require__(17).XMLReader;
 var DOMImplementation = exports.DOMImplementation = __webpack_require__(3).DOMImplementation;
 exports.XMLSerializer = __webpack_require__(3).XMLSerializer ;
 exports.DOMParser = DOMParser;
@@ -1988,7 +1764,7 @@ exports.DOMParser = DOMParser;
 
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports) {
 
 exports.entityMap = {
@@ -2241,7 +2017,7 @@ exports.entityMap = {
 
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports) {
 
 //[4]   	NameStartChar	   ::=   	":" | [A-Z] | "_" | [a-z] | [#xC0-#xD6] | [#xD8-#xF6] | [#xF8-#x2FF] | [#x370-#x37D] | [#x37F-#x1FFF] | [#x200C-#x200D] | [#x2070-#x218F] | [#x2C00-#x2FEF] | [#x3001-#xD7FF] | [#xF900-#xFDCF] | [#xFDF0-#xFFFD] | [#x10000-#xEFFFF]
@@ -2863,7 +2639,7 @@ exports.XMLReader = XMLReader;
 
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports) {
 
 class FeedCtn{
@@ -2878,6 +2654,327 @@ class FeedCtn{
 }
 
 module.exports = FeedCtn
+
+/***/ }),
+/* 19 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./src/ajaxData.js
+class AjaxData{
+    constructor(){
+        this.atype = ""
+        this.arg = ""
+        this.replyFun = ""
+        this.calltype = AjaxData.callTypeCall
+    }
+}
+AjaxData.callTypeCall = "call"
+AjaxData.callTypeReply = "reply"
+// CONCATENATED MODULE: ./src/bridgeAjax.js
+
+
+const os = __webpack_require__(11)
+const path = __webpack_require__(0)
+var fs = __webpack_require__(1);
+const FeedParser = __webpack_require__(12) 
+
+class BridgeAjax{
+    constructor(){
+        this.appdirpath = ''
+        this.getAppDir();
+        /** @type {AjaxData} */
+        this.ajaxData = null;
+    }
+
+
+    getAppDir(){
+        var homedir = os.homedir()
+        var appdir = path.join(homedir,'upworknotifier')
+        if(!fs.existsSync(appdir)){
+            fs.mkdirSync(appdir)
+        }
+        this.appdirpath = appdir;
+    }
+
+
+    simpleReadExistFile(filename){ 
+        var filepath = path.join(this.appdirpath,filename);
+        return new Promise(function(resolve,reject){
+            fs.exists(filepath,(ex)=>{
+                if(ex){
+                    fs.readFile(filepath,function(err,data){
+                        resolve(data.toString())
+                    })
+                } else {
+                    resolve("")
+                }
+            })            
+        }) 
+    }
+
+    simpleWriteFile(filename, datastring){
+        var filepath = path.join(this.appdirpath,filename);
+        return new Promise(function(resolve,reject){
+            fs.writeFile(filepath,datastring, function(er){
+                if(er) {
+                    reject(er)
+                } else {
+                    resolve("")
+                }
+            })
+        })
+    }
+
+    /** Expose to ipcMain 1 
+     * Change to ajax... using express 24/Mei/2020 
+     *  
+    */
+    async checkurl(){
+        if(this.ajaxData == null || this.ajaxData.arg == null){
+            return;
+        }
+
+
+        var feedparse = new FeedParser();
+        await feedparse.loadUrl(this.ajaxData.arg);     
+        return feedparse.getTitle();
+    }
+
+    /** Expose to ipcMain 2 */
+    savelistrss(){
+        if(this.ajaxData == null || this.ajaxData.arg == null){
+            return;
+        }
+        return this.simpleWriteFile('listfeed.json',this.ajaxData.arg)
+    }
+
+    /** Expose to ipcMain 3 */
+    getlistrss(){ 
+        return this.simpleReadExistFile('listfeed.json') 
+    }
+
+    /** Expose to ipcMain 4*/
+    savedurl(){
+        var fname = 'savedurl.json'
+        if(this.ajaxData.data == null || this.ajaxData.data == ''){             
+            return this.simpleReadExistFile(fname) 
+        } else {
+            return this.simpleWriteFile(fname,this.ajaxData.data)
+        }  
+    }
+
+    /** Expose to ipcMain  5*/
+    config(){ 
+        var fileconfigname = 'config.json'
+
+        if(this.ajaxData.data == null || this.ajaxData.data == ''){             
+            return this.simpleReadExistFile(fileconfigname) 
+        } else {
+            return this.simpleWriteFile(fileconfigname,this.ajaxData.data)
+        } 
+    }
+
+    /** Expose to ipcMain 6*/
+    async feedctn(){
+        if(this.ajaxData.arg == null){
+            return ''
+        }
+
+        var max = 10;
+        if(this.ajaxData.max != null){
+            max = Number(this.ajaxData.max);
+        }
+
+        var feedparse = new FeedParser();
+        await feedparse.loadUrl(this.ajaxData.arg);        
+        return feedparse.getContents(max) 
+    }
+
+    testslowdon(){
+        for (var i = 0; i < 100000; i++) {
+            console.log('ssssssssss')
+            const x = {
+              y:
+                Math.ceil(i) +
+                'sdsfjdlfjlkMNFONnsdno'.slice(4, (Math.random() * 20) | 0)
+            };
+        }
+    } 
+
+} 
+  
+
+/* harmony default export */ var bridgeAjax = (BridgeAjax);
+
+// ipcMain.on('ajax', async (event, arg) => { 
+//     /** @type {AjaxData} */
+//     var aData = null;
+//     try {         
+//         aData = JSON.parse(arg);
+//     } catch (error) {}
+    
+//     if(aData == null) return;
+ 
+//     if(typeof bridgeAjax[aData.atype] !== 'function') {
+//         console.log(aData.atype + " not found")
+//         return
+//     }
+
+//     try {
+
+//         bridgeAjax.ajaxData = aData;
+//         var result = await bridgeAjax[aData.atype]()
+//         event.sender.send(aData.atype, result)
+//         bridgeAjax.ajaxData = null;
+        
+//     } catch (error) { 
+//         console.log(error)
+//      } 
+// })
+// CONCATENATED MODULE: ./src/socketReader.js
+
+
+
+
+var collectionScoketReader = {}
+var idGenerator = 0;
+function generateID(){
+    idGenerator++;
+    return "id" + idGenerator;
+}
+
+var socketReader_bridgeAjax = new bridgeAjax();
+
+class socketReader_SocketReader {
+    /**
+     * 
+     * @param {import("ws")} con 
+     */
+    constructor(con){
+        this.con = con;
+        this.register()
+    }
+
+    /**
+     * store socket reader initialize to collectionSocketReader
+     */
+    register(){        
+        this.conid = generateID()
+        collectionScoketReader[this.conid] = this;   
+
+        this.con.on("message",async (msg)=>{   
+            /** @type {AjaxData} */
+            var objms = null;
+            try {
+                objms = JSON.parse(msg) 
+            } catch (error) { 
+                objms = null;
+            }
+
+            if(objms == null) return;
+
+
+            socketReader_bridgeAjax.ajaxData = objms;
+            var replyObj = new AjaxData();
+            replyObj.replyFun = objms.replyFun;
+            replyObj.calltype = AjaxData.callTypeReply;
+
+            try {                
+                replyObj.arg = await socketReader_bridgeAjax[objms.atype]()                
+            } catch (error) { 
+                replyObj.arg = "err"
+            }
+
+            this.send(replyObj)
+        })
+    }
+
+    unregister(){
+        delete collectionScoketReader[this.conid]
+    }
+
+    /**
+     * @param {SocketReaderMsg} obj 
+     */
+    send(obj){
+        var tostring = JSON.stringify(obj);
+        this.con.send(tostring)
+    }
+
+}
+
+
+/* harmony default export */ var socketReader = (socketReader_SocketReader);
+// CONCATENATED MODULE: ./src/index.js
+/**
+ * 24/Mei/2020 
+    * now we use express, and with a separate process, because the main thread 
+    * on the electron sometimes makes the UI feel laggy.
+    * therefore we use express as a server and ajax instead of ipcMain.
+ */
+
+
+const express = __webpack_require__(8)
+const expApp = express()
+const src_path = __webpack_require__(0) 
+const bodyParser = __webpack_require__(9);
+const port = 0  
+const wsServer = __webpack_require__(10).Server
+
+ 
+ 
+expApp.use(bodyParser.urlencoded({ extended: true }));
+expApp.use('/',express.static(src_path.join(__dirname,'views')))
+
+
+/** 
+ * @typedef {Object} AjaxData
+ * @property {String} atype
+ * @property {String} arg
+ * @property {Object} data
+ * 
+ */
+
+// expApp.post('/ajax', async function(req,res){ 
+
+//     /** @type {AjaxData} */
+//     var aData = req.body; 
+//     try {
+//         bridgeAjax.ajaxData = aData;
+//         var result = await bridgeAjax[aData.atype]() 
+//         bridgeAjax.ajaxData = null;
+
+//         // send result string as response
+//         res.send(result)
+        
+//     } catch (error) { 
+//         console.log("errorrrrrrrrr ajax")
+//         res.send("")
+//     } 
+// })
+
+var server = expApp.listen(port);
+     
+var wss = new wsServer({server : server, path : "/myws"})
+wss.on("connection",function(con){
+     new socketReader(con)
+})
+var url = 'http://127.0.0.1:'+ server.address().port;
+console.log(url) 
+try {        
+    process.send(url) 
+} catch (error) { } 
+ 
+
+ 
+
+
+
+ 
 
 /***/ })
 /******/ ]);

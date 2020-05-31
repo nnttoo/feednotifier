@@ -36,8 +36,7 @@ export default class FeedCtnSystem{
             /** @type {FeedCompFrame} */
             FeedCompFrame : null
         } 
-
-        
+ 
 
     }
 
@@ -140,7 +139,11 @@ export default class FeedCtnSystem{
         }
 
         this.listfeed.forEach((v,i)=>{
-            everyRssInfo(v,i)
+            try {                
+                everyRssInfo(v,i)
+            } catch (error) {
+                
+            }
         })
  
  
@@ -206,7 +209,21 @@ export default class FeedCtnSystem{
     }
 
     async saveListRss(){
-        var stringJson = JSON.stringify(this.listfeed);
+        /** @type {RssInfo[]} */
+        var objlist = []; 
+
+        /** create new asign array */
+        for(var i=0;i<this.listfeed.length;i++){
+            var curlist = this.listfeed[i]
+            var nObj = Object.assign({},curlist); 
+            nObj.rssContents = null; 
+            objlist.push(nObj)
+        } 
+
+        console.log(objlist)
+
+
+        var stringJson = JSON.stringify(objlist, null, 2);
         var scall = ServerCall.getServerAjax()
         scall.datas.atype = "savelistrss"
         scall.datas.arg = stringJson;

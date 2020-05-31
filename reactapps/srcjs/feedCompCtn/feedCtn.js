@@ -17,8 +17,12 @@ export default class FeedCtn extends MyComponent{
     async componentDidMount(){ 
   
         var mask = Mask.StartLoding()
-        await this.AppCtx.getListRss()
-        await this.AppCtx.getAllRss()
+        try {           
+            await this.AppCtx.getListRss()
+            await this.AppCtx.getAllRss() 
+        } catch (error) {
+            
+        }
         mask.remove()     
     }
 

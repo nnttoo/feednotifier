@@ -10,11 +10,10 @@ const express = require('express')
 const expApp = express()
 const path = require('path') 
 const bodyParser = require('body-parser');
-const port = 0
+const port = 0  
+const wsServer = require('ws').Server
 
-const BridgeAjax = require('./bridgeAjax') 
-/** class for response ajax */
-var bridgeAjax = new BridgeAjax();
+import SocketReader from './socketReader' 
  
 expApp.use(bodyParser.urlencoded({ extended: true }));
 expApp.use('/',express.static(path.join(__dirname,'views')))
@@ -28,33 +27,39 @@ expApp.use('/',express.static(path.join(__dirname,'views')))
  * 
  */
 
-expApp.post('/ajax', async function(req,res){ 
+// expApp.post('/ajax', async function(req,res){ 
 
-    /** @type {AjaxData} */
-    var aData = req.body; 
-    try {
-        bridgeAjax.ajaxData = aData;
-        var result = await bridgeAjax[aData.atype]() 
-        bridgeAjax.ajaxData = null;
+//     /** @type {AjaxData} */
+//     var aData = req.body; 
+//     try {
+//         bridgeAjax.ajaxData = aData;
+//         var result = await bridgeAjax[aData.atype]() 
+//         bridgeAjax.ajaxData = null;
 
-        // send result string as response
-        res.send(result)
+//         // send result string as response
+//         res.send(result)
         
-    } catch (error) { 
-        console.log(error)
-     } 
+//     } catch (error) { 
+//         console.log("errorrrrrrrrr ajax")
+//         res.send("")
+//     } 
+// })
+
+var server = expApp.listen(port);
+     
+var wss = new wsServer({server : server, path : "/myws"})
+wss.on("connection",function(con){
+     new SocketReader(con)
 })
-
-var listener = expApp.listen(port, () => {
-    var url = 'http://localhost:'+ listener.address().port;
-    console.log(url)
-
-    try {
-        
+var url = 'http://127.0.0.1:'+ server.address().port;
+console.log(url) 
+try {        
     process.send(url) 
-    } catch (error) {
-        
-    }
-})
+} catch (error) { } 
+ 
+
+ 
+
+
 
  

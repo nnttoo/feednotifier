@@ -1,7 +1,7 @@
 resolve = require('path').resolve 
 module.exports = {
     target: "node",
-    externals: ['express','electron',{'body-parser': 'bodyparser'}],
+    externals: ['express','electron',{'body-parser': 'bodyparser'},'ws'],
     entry: {
       main: './srcelectron/index.js',
       internalServer: './src/index.js',
