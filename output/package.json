@@ -19,6 +19,6 @@
   "devDependencies": {
     "electron-packager": "^13.1.1",
     "electron-rebuild": "^1.8.4",
-    "electron": "^4.1.4"
+    "electron": "^9.1.0"
   }
 }
