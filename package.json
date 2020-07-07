@@ -30,7 +30,7 @@
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "css-loader": "^3.4.2",
-    "electron": "^4.1.4",
+    "electron": "^9.1.0",
     "electron-packager": "^13.1.1",
     "electron-rebuild": "^1.8.4",
     "file-loader": "^6.0.0",
